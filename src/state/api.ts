@@ -32,7 +32,7 @@ export const api = createApi({
             : `/tenants/${user.userId}`;
 
           let userDetailsResponse = await fetchWithBQ(endpoint);
-
+          
           //if user doesn't exist, create new user
           if (userDetailsResponse.error &&
             userDetailsResponse.error.status === 404
@@ -49,11 +49,11 @@ export const api = createApi({
             data: {
               cognitoInfo: {...user},
               userInfo: userDetailsResponse.data as Tenant | Manager,
-              userRole
-            }
-          }
+              userRole,
+            },
+          };
         } catch (error: any) {
-          return {error:error.message || "Could not fetch user data"}
+          return {error: error.message || "Could not fetch user data"}
         }
       }
     })
